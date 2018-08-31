@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Incantorium\Scripts\LookAtTarget.cs" />
     <Compile Include="Assets\Incantorium\Scripts\Seal.cs" />
+    <Compile Include="Assets\Incantorium\Scripts\SoundOnCollision.cs" />
     <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AmbienceEmitter.cs" />
     <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AudioManager_Sound.cs" />
