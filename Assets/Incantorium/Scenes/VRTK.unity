@@ -185,7 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57f82fec2756804da2f2a9a1a2c6fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuObject: {fileID: 0}
+  sceneName: Menu
+  VRTKSceneName: VRTK
 --- !u!114 &81390640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ MonoBehaviour:
   sealScript: {fileID: 1746708323}
   focusButton: 3
   grabButton: 7
-  _enabled: 0
+  _enabled: 1
 --- !u!114 &81390641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1829,7 +1830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1019643244
 Transform:
   m_ObjectHideFlags: 0
@@ -2111,7 +2112,7 @@ MonoBehaviour:
   sealScript: {fileID: 1689013904}
   focusButton: 3
   grabButton: 7
-  _enabled: 0
+  _enabled: 1
 --- !u!114 &1573780867
 MonoBehaviour:
   m_ObjectHideFlags: 0

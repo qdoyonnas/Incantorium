@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/Ivor Darsil/Desktop/Drive/Unity Projects/Incantorium/Build/Incantorium.exe
+C:/Users/001185088/Documents/Incantorium/Build/Incantorium.exe
 SceneListBegin?
 Assets/Incantorium/Scenes/VRTK.unity
 Assets/Incantorium/Scenes/Menu.unity
@@ -163,6 +163,7 @@ a38e9079df57a9cc48168ffd3d4877ba Assembly-CSharp.dll:VRTK.VRTK_DashTeleport
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_DaydreamController
 35628e35dbce62fbe8240db355460838 Assembly-CSharp.dll:VRTK.VRTK_SDKObjectAlias
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_HyperealVRSystem
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.SpawnPoint
 8a4e4d4702b78e1b305dfce90293a3c8 Assembly-CSharp.dll:VRTK.Examples.Controller_Menu
 36dc22957e2e438ed67eff11ab427998 Assembly-CSharp.dll:VRTK.VRTK_Lever
 f4cc11502ff9851ae871d1585123c269 Assembly-CSharp.dll:VRTK.GrabAttachMechanics.VRTK_RotateTransformGrabAttach
@@ -493,7 +494,7 @@ a6e7c6eb89ce58b26d1b73d36036bb2c Assembly-CSharp.dll:VRTK.VRTK_ControllerTooltip
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_XimmerseController
 8d4034ae49e5ee1cbf80568d12a58386 Assembly-CSharp.dll:VRTK.VRTK_NavMeshData
 92cdfcb90d84cb414b9599922bc5ee85 Assembly-CSharp.dll:VRTK.VRTK_RotateObjectControlAction
-8a4e4d4702b78e1b305dfce90293a3c8 Assembly-CSharp.dll:.GameMenu
+dcec598972617de092d8901f9f784865 Assembly-CSharp.dll:.GameMenu
 30edfc81037cf59eee86d575331df60a Assembly-CSharp.dll:VRTK.VRTK_ControllerHighlighter
 306123364cebff2d7eaa997ea0d54d48 Assembly-CSharp.dll:VRTK.VRTK_HeadsetControllerAware
 93307bd34e39d73fd24e00ec39c25a91 Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
@@ -511,3 +512,4 @@ d1bd1b647555113ff25bdbbe8f17434b Assembly-CSharp.dll:VRTK.UnityEventHelper.VRTK_
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_SteamVRController
 f2dabecc8a6ff0b8dc8afadb4fe8a6d7 Assembly-CSharp.dll:VRTK.UnityEventHelper.VRTK_ControlAnimationGrabAttach_UnityEvents
 877020663fc87534d713b6597a82a379 Assembly-CSharp.dll:.OculusSpatializerUnity
+c1ab4595e54cf75ea200007bc9ef3df7 Assembly-CSharp.dll:.EnableSealsOnSpawn

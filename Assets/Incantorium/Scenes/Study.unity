@@ -123,7 +123,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4421414937972778, guid: 6bccd6c52dd14994c806c147ace36e55, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.370665
+      value: -0.371
       objectReference: {fileID: 0}
     - target: {fileID: 4421414937972778, guid: 6bccd6c52dd14994c806c147ace36e55, type: 2}
       propertyPath: m_LocalPosition.y
@@ -131,7 +131,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4421414937972778, guid: 6bccd6c52dd14994c806c147ace36e55, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.79803634
+      value: -0.299
       objectReference: {fileID: 0}
     - target: {fileID: 4421414937972778, guid: 6bccd6c52dd14994c806c147ace36e55, type: 2}
       propertyPath: m_LocalRotation.x
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8afa0b205791c9f4496bf2814aeac078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  precisionGrab: 0
+  precisionGrab: 1
   rightSnapHandle: {fileID: 0}
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 0
@@ -5237,6 +5237,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4343432066364980, guid: 30184c935a6232f46b42adb0fa827c9b,
     type: 2}
   m_PrefabInternal: {fileID: 831310703}
+--- !u!1 &879384347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879384349}
+  - component: {fileID: 879384348}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &879384348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 879384347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b1d51275bab744b48dfeceb4291f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doEnable: 1
+--- !u!4 &879384349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 879384347}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.152, y: 1, z: -2.008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1836388719}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1012856942
 GameObject:
   m_ObjectHideFlags: 0
