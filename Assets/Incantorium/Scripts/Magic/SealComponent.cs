@@ -1,18 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SealComponent : MonoBehaviour
 {
-    public enum ComponentType
-    {
-        CIRCLE,
-        RING,
-        CIRCLERUNES,
-        TRIANGLE,
-        WEDGE
-    }
-
     #region Public Fields
     public enum SpinDirection {
         COUNTERCLOCKWISE,
@@ -21,95 +13,117 @@ public class SealComponent : MonoBehaviour
     };
 
     public Vector3 pivotPoint = Vector3.zero;
-    public SpinDirection spinDirection = SpinDirection.EITHER;
-    public float minSpinRate = 0;
-    public float maxSpinRate = 10;
     #endregion
 
     Material aspectMaterial;
     float spinDegrees = 0;
+    float orbitDegrees = 0;
     Vector3 spinAxis = Vector3.up;
 
-	public void Init( ComponentType type, Vector2 pivot, SpinDirection direction, Vector3 axis, float minSpin, float maxSpin )
+    float RollSpin( SpinDirection direction, float min, float max )
     {
-        InitObject( type );
-        SetFields( pivot, direction, axis, minSpin, maxSpin );
-        InitSpin();
-    }
-    void InitObject( ComponentType type )
-    {
-        Destroy( gameObject.GetComponent<Collider>() );
-        transform.localScale = Vector3.one;
+        float degrees = 0;
 
-        switch( type ) {
-            case SealComponent.ComponentType.CIRCLE:
-                gameObject.name = "Circle";
-                aspectMaterial = Resources.Load<Material>( "Aspects/Circle_Aspect" );
-                gameObject.GetComponent<Renderer>().material = aspectMaterial;
-                break;
-            case SealComponent.ComponentType.RING:
-                gameObject.name = "Ring";
-                aspectMaterial = Resources.Load<Material>( "Aspects/Ring_Aspect" );
-                gameObject.GetComponent<Renderer>().material = aspectMaterial;
-                break;
-            case SealComponent.ComponentType.CIRCLERUNES:
-                gameObject.name = "CircleRunes";
-                aspectMaterial = Resources.Load<Material>( "Aspects/Circle_Runes" );
-                gameObject.GetComponent<Renderer>().material = aspectMaterial;
-                break;
-            case SealComponent.ComponentType.TRIANGLE:
-                gameObject.name = "Triangle";
-                aspectMaterial = Resources.Load<Material>( "Aspects/Triangle_Aspect" );
-                gameObject.GetComponent<Renderer>().material = aspectMaterial;
-                break;
-            case SealComponent.ComponentType.WEDGE:
-                gameObject.name = "Wedge";
-                aspectMaterial = Resources.Load<Material>( "Aspects/Wedge_Aspect" );
-                gameObject.GetComponent<Renderer>().material = aspectMaterial;
-                break;
-        }
-    }
-    void SetFields( Vector2 pivot, SpinDirection direction, Vector3 axis, float minSpin, float maxSpin )
-    {
-        pivotPoint = pivot;
-        spinDirection = direction;
-        spinAxis = axis;
-        minSpinRate = minSpin;
-        maxSpinRate = maxSpin;
-    }
-    void InitSpin()
-    {
-        if( minSpinRate > maxSpinRate ) {
-            minSpinRate = maxSpinRate;
+        if( min > max ) {
+            min = max;
         }
 
-        switch( spinDirection ) {
+        switch( direction ) {
             case SpinDirection.COUNTERCLOCKWISE:
-                spinDegrees = Random.Range( -maxSpinRate, -minSpinRate );
+                degrees = Random.Range( -max, -min );
                 break;
             case SpinDirection.EITHER:
-                spinDegrees = Random.Range( -maxSpinRate, maxSpinRate );
-                while( Mathf.Abs(spinDegrees) < minSpinRate ) {
-                    spinDegrees = Random.Range( -maxSpinRate, maxSpinRate );
+                degrees = Random.Range( -max, max );
+                while( Mathf.Abs( degrees ) < min ) {
+                    degrees = Random.Range( -max, max );
                 }
                 break;
             case SpinDirection.CLOCKWISE:
-                Random.Range( minSpinRate, maxSpinRate );
+                degrees = Random.Range( min, max );
                 break;
         }
+
+        return degrees;
+    }
+
+    public float Spin( float degrees )
+    {
+        spinDegrees = degrees;
+
+        return spinDegrees;
+    }
+    public float Spin( SpinDirection direction, float min, float max )
+    {
+        spinDegrees = RollSpin( direction, min, max );
+
+        return spinDegrees;
+    }
+    
+    public float Orbit( Vector3 offsetPosition, Vector3 pivot, float degrees )
+    {
+        transform.localPosition = offsetPosition;
+        pivotPoint = pivot;
+        orbitDegrees = degrees;
+
+        return degrees;
+    }
+    public float Orbit( Vector3 offsetPosition, Vector3 pivot, SpinDirection direction, float min, float max )
+    {
+        transform.localPosition = offsetPosition;
+        pivotPoint = pivot;
+
+        orbitDegrees = RollSpin( direction, min, max );
+
+        return orbitDegrees;
+    }
+
+    void InitObject()
+    {
+        Destroy( gameObject.GetComponent<Collider>() );
+        transform.localScale = Vector3.one;
+        gameObject.GetComponent<Renderer>().material = aspectMaterial;
+        gameObject.layer = transform.parent.gameObject.layer;
+    }
+    public void Init( Material mat )
+    {
+        aspectMaterial = new Material( mat );
+        InitObject();
+
+        Color createColor = aspectMaterial.color;
+        createColor.a = 0;
+        aspectMaterial.DOColor( createColor, 1 ).From();
     }
 	
 	void FixedUpdate () {
-        transform.RotateAround( GetPivot(), transform.TransformDirection(spinAxis) , spinDegrees );
+        transform.Rotate( spinAxis, spinDegrees );
+        transform.RotateAround( GetPivot(), transform.TransformDirection(spinAxis), orbitDegrees );
 	}
+
+    public void DoDestroy()
+    {
+        if( aspectMaterial == null || gameObject == null ) { return; }
+
+        Color destroyColor = aspectMaterial.color;
+        destroyColor.a = 0;
+        aspectMaterial.DOColor( destroyColor, 1 )
+            .OnComplete( () => Destroy(gameObject) );
+    }
+    public void DoDestroy( Sequence destroySequence )
+    {
+        if( aspectMaterial == null || gameObject == null ) { return; }
+
+        Color destroyColor = aspectMaterial.color;
+        destroyColor.a = 0;
+        destroySequence.Insert( 0, aspectMaterial.DOColor( destroyColor, 1 ) );
+    }
 
     private void OnDestroy()
     {
-        //Destroy( aspectMaterial );
+        Destroy( aspectMaterial );
     }
 
     Vector3 GetPivot()
     {
-        return transform.position += pivotPoint;
+        return transform.parent.position + pivotPoint;
     }
 }

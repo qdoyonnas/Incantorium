@@ -5,160 +5,70 @@ using VRTK;
 
 public class SealControls : MonoBehaviour
 {
-    #region Public Fields
-
-    public Seal sealScript;
-    public VRTK_ControllerEvents.ButtonAlias focusButton = VRTK_ControllerEvents.ButtonAlias.TriggerPress;
-    public VRTK_ControllerEvents.ButtonAlias grabButton = VRTK_ControllerEvents.ButtonAlias.GripPress;
-
-    #endregion
-
-    #region Private Fields
-
-    [SerializeField]
-    bool _enabled = true;
+    public VRTK_Pointer interactionPointer;
+    public float focusRange = 0.1f;
 
     bool sealFocused = false;
     bool sealGrabbed = false;
 
-    VRTK_ControllerEvents.ButtonAlias subscribedFocusButton;
-    VRTK_ControllerEvents.ButtonAlias subscribedGrabButton;
+    public bool GetSealFocused()
+    {
+        return sealFocused;
+    }
+    public bool GetSealGrabbed()
+    {
+        return sealGrabbed;
+    }
+
+    Magic magicScript;
     VRTK_ControllerEvents controllerEvents;
+    Seal heldSealScript;
 
-    #endregion
+    Vector3 savedPosition = Vector3.zero;
+    Vector3 savedRotation = Vector3.zero;
 
-    #region Properties
-
-    public bool Enabled
+    public void ResetSavedVectors()
     {
-        get {
-            return _enabled;
-        }
-        set {
-            _enabled = value;
-            if( _enabled ) {
-                SubscribeToEvents();
-                if( sealScript != null ) { sealScript.SetActive( true ); }
-            } else {
-                UnsubscribeFromEvents();
-                if( sealScript != null ) { sealScript.SetActive( false ); }
-            }
-        }
+        savedPosition = transform.position;
+        savedRotation = transform.localEulerAngles;
     }
-
-    #endregion
-
-    #region Subscription Methods
-
-    void SubscribeToEvents()
+    public Vector3 GetPositionDelta()
     {
-        SubscribeToFocusButton();
-        SubscribeToGrabButton();
+        if( !sealFocused ) { return Vector3.zero; }
+
+        Vector3 delta = transform.position - savedPosition;
+        savedPosition = transform.position;
+
+        return delta;
     }
-    void SubscribeToFocusButton()
+    public Vector3 GetRotationDelta()
     {
-        if( controllerEvents == null
-            || focusButton == VRTK_ControllerEvents.ButtonAlias.Undefined
-            || focusButton == subscribedFocusButton )
-        { return; }
+        if( !sealFocused ) { return Vector3.zero; }
 
-        controllerEvents.SubscribeToButtonAliasEvent( focusButton, true, FocusSeal );
-        controllerEvents.SubscribeToButtonAliasEvent( focusButton, false, ReleaseFocus );
-        subscribedFocusButton = focusButton;
+        Vector3 delta = transform.localEulerAngles - savedRotation;
+        savedRotation = transform.localEulerAngles;
+
+        return delta;
     }
-    void SubscribeToGrabButton()
-    {
-        if( controllerEvents == null
-            || grabButton == VRTK_ControllerEvents.ButtonAlias.Undefined
-            || grabButton == subscribedGrabButton ) 
-        { return; }
-
-        controllerEvents.SubscribeToButtonAliasEvent( grabButton, true, GrabSeal );
-        controllerEvents.SubscribeToButtonAliasEvent( grabButton, false, ReleaseGrab );
-        subscribedGrabButton = grabButton;
-    }
-
-    #endregion
-
-    #region Unsubscription Methods
-
-    void UnsubscribeFromEvents()
-    {
-        UnsubscribeFromFocusButton();
-        UnsubscribeFromGrabButton();
-    }
-    void UnsubscribeFromFocusButton()
-    {
-        if( controllerEvents == null
-            || subscribedFocusButton == VRTK_ControllerEvents.ButtonAlias.Undefined)
-        { return; }
-
-        controllerEvents.UnsubscribeToButtonAliasEvent( focusButton, true, FocusSeal );
-        controllerEvents.UnsubscribeToButtonAliasEvent( focusButton, false, ReleaseFocus );
-        subscribedFocusButton = focusButton;
-    }
-    void UnsubscribeFromGrabButton()
-    {
-        if( controllerEvents == null
-            || subscribedGrabButton == VRTK_ControllerEvents.ButtonAlias.Undefined)
-        { return; }
-
-        controllerEvents.UnsubscribeToButtonAliasEvent( grabButton, true, GrabSeal );
-        controllerEvents.UnsubscribeToButtonAliasEvent( grabButton, false, ReleaseGrab );
-        subscribedGrabButton = grabButton;
-    }
-
-    #endregion
-
-    #region Focus Methods
 
     void FocusSeal( object sender, ControllerInteractionEventArgs e )
     {
-        // Confirm the hand isn't grabbing any interactable object
-        // And we aren't already focusing a seal
-        if( CheckInteractGrabStatus()
-            || sealFocused )
-        { return; }
-
-        // Determine if we are focusing a seal or creating one
-        if( sealScript.isActive ) {
-            controllerEvents = GetComponent<VRTK_ControllerEvents>();
-            SubscribeToEvents();
-        } else {
-            sealScript.Create( this );
-        }
-
-        sealFocused = true;
-    }
-    void ReleaseFocus( object sender, ControllerInteractionEventArgs e )
-    {
-        if( !sealFocused ) { return; }
-        
         sealFocused = false;
+
+        if( controllerEvents.GetTriggerAxis() >= 0.5f - focusRange
+            && controllerEvents.GetTriggerAxis() <= 0.5f + focusRange ) {
+            sealFocused = true;
+        }
     }
-
-    #endregion
-
-    #region Grab Methods
-
     void GrabSeal( object sender, ControllerInteractionEventArgs e )
     {
-        // Confirm the hand isn't grabbing any interactable object
-        // And we aren't already holding a seal
-        if( CheckInteractGrabStatus()
-            || sealGrabbed )
-        { return; }
+        sealGrabbed = false;
 
-        //
+        if( controllerEvents.GetGripAxis() >= 0.5f - focusRange
+            && controllerEvents.GetGripAxis() <= 0.5f + focusRange ) {
+            sealGrabbed = true;
+        }
     }
-    void ReleaseGrab( object sender, ControllerInteractionEventArgs e )
-    {
-
-    }
-
-    #endregion
-
-    #region Helper Methods
 
     bool CheckInteractGrabStatus()
     {
@@ -168,31 +78,18 @@ public class SealControls : MonoBehaviour
         return false;
     }
 
-    #endregion
+    void SubscribeToControllerEvents()
+    {
+        if( controllerEvents == null ) { return; }
 
-    #region Unity Methods
-
+        controllerEvents.TriggerAxisChanged += FocusSeal;
+        controllerEvents.GripAxisChanged += GrabSeal;
+    }
     void Start()
     {
+        magicScript = VRTKScripts.instance.GetComponentInChildren<Magic>();
+
         controllerEvents = GetComponent<VRTK_ControllerEvents>();
-
-        if( _enabled ) {
-            SubscribeToEvents();
-            if( sealScript != null ) { sealScript.SetActive( true ); }
-        } else {
-            if( sealScript != null ) { sealScript.SetActive( false ); }
-        }
+        SubscribeToControllerEvents();
     }
-
-    // Update is called once per frame
-    void FixedUpdate ()
-    {
-        if( !_enabled ) { return; }
-
-        if( sealScript != null && sealScript.isActive && sealFocused ) {
-            sealScript.MoveTo( this.transform.position );
-        }
-	}
-
-    #endregion
 }

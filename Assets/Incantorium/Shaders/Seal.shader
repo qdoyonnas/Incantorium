@@ -12,13 +12,43 @@
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		SubShader {
-			Material {
-				Emission [_Color]
-			}
+
 			Pass {
-				SetTexture [_MainTex] {
-					Combine Texture * Primary, Texture * Primary
+				CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag
+
+				#include "UnityCG.cginc"
+
+				float4 _Color;
+				sampler2D _MainTex;
+				float4 _MainTex_ST;
+
+				struct appdata
+				{
+					float4 vertex : POSITION;
+					float2 uv : TEXCOORD0;
+				};
+				struct vert2Frag
+				{
+					float2 uv : TEXCOORD0;
+					float4 vertex : SV_POSITION;
+				};
+
+				vert2Frag vert( appdata IN )
+				{
+					vert2Frag OUT;
+					OUT.vertex = UnityObjectToClipPos(IN.vertex);
+					OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+					return OUT;
 				}
+				fixed4 frag( vert2Frag IN ) : SV_Target
+				{
+					fixed4 color = tex2D(_MainTex, IN.uv) * _Color;
+					return color;
+				}
+
+				ENDCG
 			}
 		}	
 	}

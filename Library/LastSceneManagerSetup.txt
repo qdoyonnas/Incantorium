@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Incantorium/Scenes/Study.unity
+- path: Assets/Incantorium/Scenes/VRTK.unity
   isLoaded: 1
   isActive: 1

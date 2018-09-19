@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using DG.Tweening;
 
 public class MenuOrb : GazeableObject
 {
@@ -24,10 +25,11 @@ public class MenuOrb : GazeableObject
     VRTK_InteractableObject interactable;
     GameObject glowEffect;
     Light glowLight;
-    Vector3Tweener positionTweener = new Vector3Tweener( true );
 
     bool isDoingAction = false;
     VRTK_HeadsetFade headsetFade;
+
+    Tweener transformTween;
 
     #endregion
 
@@ -94,9 +96,11 @@ public class MenuOrb : GazeableObject
     }
     void StartTween()
     {
-        if( anchor == null || positionTweener.active ) { return; }
-        
-        positionTweener.StartTween( transform.position, anchor.position, tweenSpeed, -1 );
+        if( anchor == null || transformTween != null ) { return; }
+
+        transformTween = transform.DOMove( anchor.position, tweenSpeed )
+            .SetEase( Ease.InOutCubic )
+            .OnKill( () => transformTween = null );
     }
     bool CheckAnchor()
     {
@@ -111,8 +115,6 @@ public class MenuOrb : GazeableObject
         if( !isAnchored && !IsGrabbed ) {
             StartTween();
         }
-
-        transform.position = positionTweener.Update( transform.position );
     }
 
     #endregion
