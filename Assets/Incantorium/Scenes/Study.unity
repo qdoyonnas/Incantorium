@@ -537,12 +537,21 @@ Prefab:
       propertyPath: precisionGrab
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1966252297899516, guid: 984940202c3dd674a853c81e74ac224d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 984940202c3dd674a853c81e74ac224d, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &237936838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1966252297899516, guid: 984940202c3dd674a853c81e74ac224d,
+    type: 2}
+  m_PrefabInternal: {fileID: 237936837}
+--- !u!4 &237936839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4571937144106072, guid: 984940202c3dd674a853c81e74ac224d,
     type: 2}
   m_PrefabInternal: {fileID: 237936837}
 --- !u!1001 &276918186
@@ -640,6 +649,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4477992614670020, guid: 7b116029f07590b47b4a4fefcf04842a,
     type: 2}
   m_PrefabInternal: {fileID: 1228425323}
+--- !u!1 &632780982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 632780983}
+  - component: {fileID: 632780984}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &632780983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632780982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 237936839}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &632780984
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632780982}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0, g: 1, b: 0.0064702034, a: 1}
+  m_Intensity: 4
+  m_Range: 1.5
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &761646720
 Prefab:
   m_ObjectHideFlags: 0
@@ -838,7 +913,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8df7c355b47ef0d4ebe925d31337210b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

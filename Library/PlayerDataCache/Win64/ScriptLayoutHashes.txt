@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/Ivor Darsil/Desktop/Drive/Unity Projects/Incantorium/Build/Incantorium.exe
+C:/Users/001185088/Documents/Incantorium/Build/Incantorium.exe
 SceneListBegin?
 Assets/Incantorium/Scenes/VRTK.unity
 Assets/Incantorium/Scenes/Menu.unity
@@ -169,6 +169,7 @@ a38e9079df57a9cc48168ffd3d4877ba Assembly-CSharp.dll:VRTK.VRTK_DashTeleport
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.Examples.ButtonReactor
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_UnityHeadset
 22047f3c3fbb715550f61eddb26e9cd3 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.Vignette
+84431f32f64a9caeae2a5be94420c13b Assembly-CSharp.dll:.DoorTrigger
 90d5c0b80732d6afe3ccf9633cf325c4 Assembly-CSharp.dll:VRTK.UnityEventHelper.VRTK_SlingshotJump_UnityEvents
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_DaydreamController
 35628e35dbce62fbe8240db355460838 Assembly-CSharp.dll:VRTK.VRTK_SDKObjectAlias
@@ -533,6 +534,6 @@ d1bd1b647555113ff25bdbbe8f17434b Assembly-CSharp.dll:VRTK.UnityEventHelper.VRTK_
 67a542647db2da79fdcb3afe5f420424 Assembly-CSharp.dll:.Magic
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:VRTK.SDK_SteamVRController
 f2dabecc8a6ff0b8dc8afadb4fe8a6d7 Assembly-CSharp.dll:VRTK.UnityEventHelper.VRTK_ControlAnimationGrabAttach_UnityEvents
-877020663fc87534d713b6597a82a379 Assembly-CSharp.dll:.OculusSpatializerUnity
 43c2b6a8a2a966a06be2fd2d64f7246e Assembly-CSharp.dll:.FireplaceTrigger
-84431f32f64a9caeae2a5be94420c13b Assembly-CSharp.dll:.DoorTrigger
+877020663fc87534d713b6597a82a379 Assembly-CSharp.dll:.OculusSpatializerUnity
+e2114ec8940c1609fd52783586165270 Assembly-CSharp.dll:.GrabOnPoint

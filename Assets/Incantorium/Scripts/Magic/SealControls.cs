@@ -56,7 +56,8 @@ public class SealControls : MonoBehaviour
         sealFocused = false;
 
         if( controllerEvents.GetTriggerAxis() >= 0.5f - focusRange
-            && controllerEvents.GetTriggerAxis() <= 0.5f + focusRange ) {
+            && ( magicScript.FocusActive || controllerEvents.GetTriggerAxis() <= 0.5f + focusRange) )
+        {
             sealFocused = true;
         }
     }
@@ -65,7 +66,8 @@ public class SealControls : MonoBehaviour
         sealGrabbed = false;
 
         if( controllerEvents.GetGripAxis() >= 0.5f - focusRange
-            && controllerEvents.GetGripAxis() <= 0.5f + focusRange ) {
+            && ( magicScript.FocusActive || controllerEvents.GetGripAxis() <= 0.5f + focusRange) )
+        {
             sealGrabbed = true;
         }
     }

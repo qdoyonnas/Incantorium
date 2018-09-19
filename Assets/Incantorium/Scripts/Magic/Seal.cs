@@ -10,7 +10,7 @@ public class Seal : MonoBehaviour
 
     public const float TravelTime = 0.5f;
     public const float OrbitingScaleFactor = 1.5f;
-    public const float OrbitDistance = (1f * 5f);
+    public const float OrbitDistance = (1.2f * 5f);
     public const float ActivateDistance = 3f;
     public const float Friction = 0.05f;
 
@@ -192,7 +192,7 @@ public class Seal : MonoBehaviour
 
         CheckDistance();
 
-        velocity += positionDelta * 0.4f;
+        velocity += positionDelta * 0.7f;
         if( velocity.magnitude > 2f ) {
             velocity = velocity.normalized * 2f;
         }
