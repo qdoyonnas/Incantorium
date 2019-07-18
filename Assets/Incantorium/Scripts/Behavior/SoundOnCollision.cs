@@ -13,7 +13,7 @@ public class SoundOnCollision : MonoBehaviour
     Rigidbody rigidbody;
 
 	// Use this for initialization
-	void Start ()
+	void OnEnable ()
     {
 		audioSource = GetComponent<AudioSource>();
         if( audioSource == null ) {
@@ -29,6 +29,8 @@ public class SoundOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if( !this.enabled ) { return; }
+
         if( rigidbody.velocity.magnitude >= minimumVelocity ) {
             audioSource.volume = rigidbody.velocity.magnitude / 1;
             audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
@@ -38,6 +40,8 @@ public class SoundOnCollision : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
+        if( !this.enabled ) { return; }
+
         if (rigidbody.velocity.magnitude >= minimumVelocity)
         {
             audioSource.volume = rigidbody.velocity.magnitude / 1;

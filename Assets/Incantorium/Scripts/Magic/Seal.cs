@@ -201,6 +201,7 @@ public class Seal : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position += velocity;
+        transform.LookAt(VRTK_DeviceFinder.HeadsetTransform().position);
         velocity -= velocity * Friction;
         if( velocity.magnitude < 0.01f ) {
             velocity = Vector3.zero;
